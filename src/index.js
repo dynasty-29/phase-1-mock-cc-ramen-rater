@@ -1,4 +1,5 @@
 // write your code here 
+const API_URL = "https://dynasty-29.github.io/phase-1-mock-cc-ramen-rater/db.json";
 document.addEventListener("DOMContentLoaded", () => {
     const ramenMenu = document.querySelector("#ramen-menu");
     const ramenDetail = document.querySelector("#ramen-detail");
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentRamenId = null;
   
     // Fetch and display all ramen images
-    fetch("http://localhost:3000/ramens")
+    fetch(API_URL)
       .then(response => response.json())
       .then(ramens => {
         if (ramens.length > 0) {
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
       addRamenToMenu(newRamen);
   
       // Optional: Persist new ramen to server
-      fetch("http://localhost:3000/ramens", {
+      fetch(${API_URL}, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newRamen),
@@ -73,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Optional: Persist changes to server
       if (currentRamenId) {
-        fetch(`http://localhost:3000/ramens/${currentRamenId}`, {
+        fetch(`${API_URL}${currentRamenId}`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ rating: updatedRating, comment: updatedComment }),
@@ -86,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Optional: Add delete functionality
     ramenDetail.addEventListener("dblclick", () => {
       if (currentRamenId) {
-        fetch(`http://localhost:3000/ramens/${currentRamenId}`, { method: "DELETE" })
+        fetch(`${API_URL}{currentRamenId}`, { method: "DELETE" })
           .then(() => {
             document.querySelector(`img[alt='${document.querySelector(".name").textContent}']`).remove();
             clearRamenDetails();
